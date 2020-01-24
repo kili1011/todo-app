@@ -124,7 +124,6 @@
             .then(response => response.json())
             .then(jsonResponse => {
                 console.log(jsonResponse);
-                
                 // list item
                 const li = document.createElement('li');
                 // input
@@ -133,16 +132,13 @@
                 checkbox.type = 'checkbox';
                 checkbox.setAttribute('data-id', jsonResponse.id);
                 li.appendChild(checkbox);
-
                 const text = document.createTextNode(' ' + jsonResponse.description);
                 li.appendChild(text);
-
                 const deleteButton = document.createElement('button');
                 deleteButton.className = 'delete-todo';
                 deleteButton.setAttribute('data-id', jsonResponse.id);
                 deleteButton.innerHTML = '&cross;';
                 li.appendChild(deleteButton);
-
                 document.getElementById('todos').appendChild(li);
                 document.getElementById('error').className = 'hidden';
             })
