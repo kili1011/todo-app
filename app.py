@@ -43,12 +43,17 @@ def create_todo():
     body = {} # an empty dictionary
     try:
         description = request.get_json()['description']
-        todo = Todo(description=description, completed=False, list_id=1)
+        requested_list = request.get_json()['list']      
+        
+        # Neues Todo Item
+        todo = Todo(description=description, completed=False)
+        todo.list = TodoList.query.filter_by(name=requested_list).one()
         db.session.add(todo)
         db.session.commit()
         body['id'] = todo.id
         body['completed'] = todo.completed
         body['description'] = todo.description
+        body['list_id'] = todo.list_id
     except:
         error = True
         db.session.rollback()
@@ -59,6 +64,7 @@ def create_todo():
         abort(400)
     else:
         return jsonify(body)
+
 
 
 # Mark a todo item as completed
