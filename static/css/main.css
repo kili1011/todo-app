@@ -1,3 +1,7 @@
+body{
+    margin: 0 auto;
+    width: 1130px;
+}
 .hidden{
     display: none;
 }
@@ -28,4 +32,8 @@ li button{
 }
 .todos-wrapper{
     padding-top:40px;
+    box-shadow: 1px 1px 9px #ddd;
+    padding: 22px 48px 38px 30px;
+    background-color: #fff6db;
 }
+

@@ -23,17 +23,42 @@ class Todo(db.Model):
   list_id = db.Column(db.Integer, db.ForeignKey('todolists.id'), nullable=False)
 
   def __repr__(self):
-      return f'<Todo {self.id} {self.description}>'
+      return f'<Todo {self.id} {self.description} - completed: {self.completed}>'
 
 
 class TodoList(db.Model):
   __tablename__ = 'todolists'
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(), nullable = False)
+  completed = db.Column(db.Boolean, nullable=False, default=False)
   todos = db.relationship('Todo', backref='list', lazy=True)
 
   def __repr__(self):
     return f'<TodoList {self.id} {self.name}>'
+
+
+# Create a new list item
+@app.route('/lists/create', methods=['POST'])
+def create_list():
+  error = False
+  body = {}
+  try:
+    listname = request.get_json()['name']
+    neue_liste = TodoList(name=listname)
+    db.session.add(neue_liste)
+    db.session.commit() 
+    body['id'] = neue_liste.id
+    body['name'] = neue_liste.name
+  except:
+    error = True
+    db.session.rollback()
+    print(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    abort(400)
+  else:
+    return jsonify(body)
 
 
 # Create a new todo item
@@ -66,13 +91,11 @@ def create_todo():
         return jsonify(body)
 
 
-
 # Mark a todo item as completed
 @app.route('/todos/<todo_id>/set-completed', methods=['POST'])
 def set_completed_todo(todo_id):
   try:
     completed = request.get_json()['completed']
-    print('completed', completed)
     todo = Todo.query.get(todo_id)
     todo.completed = completed
     db.session.commit()
@@ -81,6 +104,30 @@ def set_completed_todo(todo_id):
   finally:
     db.session.close()
   return redirect(url_for('index'))
+
+
+# Mark a list item as completed and all its todos
+@app.route('/lists/<list_id>/set-completed', methods=['POST'])
+def set_completed_list(list_id):
+  error = False
+  body = {} # an empty dictionary
+  try:
+    completed = request.get_json()['completed']
+    list_completed = TodoList.query.get(list_id)
+    list_completed.completed = completed
+    list_todos = list_completed.todos
+    for todo in list_todos:
+      todo.completed = completed
+    db.session.commit()
+    body['list_id'] = list_completed.id
+    body['completed'] = completed
+  except:
+    error = True
+    db.session.rollback()
+    print(sys.exc_info())
+  finally:
+    db.session.close()
+  return jsonify(body)
 
 
 # Delete a todo item
@@ -101,7 +148,7 @@ def delete_todo(todo_id):
 @app.route('/lists/<list_id>')
 def get_list_todos(list_id):
   return render_template('index.html',
-  lists=TodoList.query.all(), 
+  lists=TodoList.query.order_by('id').all(), 
   active_list=TodoList.query.get(list_id),
   todos=Todo.query.filter_by(list_id=list_id).order_by('id').all())
 
