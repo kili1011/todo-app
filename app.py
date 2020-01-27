@@ -36,6 +36,9 @@ class TodoList(db.Model):
   def __repr__(self):
     return f'<TodoList {self.id} {self.name}>'
 
+#
+# App commands
+#
 
 # Create a new list item
 @app.route('/lists/create', methods=['POST'])
@@ -131,11 +134,28 @@ def set_completed_list(list_id):
 
 
 # Delete a todo item
-@app.route('/todos/<todo_id>/delete', methods=['DELETE'])
+@app.route('/lists/todos/<todo_id>/delete', methods=['DELETE'])
 def delete_todo(todo_id): 
   try:
     todo = Todo.query.get(todo_id)
     db.session.delete(todo)
+    db.session.commit()
+  except:
+    db.session.rollback()
+  finally:
+    db.session.close()
+  return jsonify({ 'success': True })
+
+
+# Delete a list item
+@app.route('/lists/<listId>/delete', methods=['DELETE'])
+def delete_list(listId):
+  try:
+    list_to_delete = TodoList.query.get(listId)
+    todos_to_delete = list_to_delete.todos
+    for todo in todos_to_delete:
+      db.session.delete(todo)
+    db.session.delete(list_to_delete)
     db.session.commit()
   except:
     db.session.rollback()

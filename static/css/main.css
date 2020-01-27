@@ -35,5 +35,23 @@ li button{
     box-shadow: 1px 1px 9px #ddd;
     padding: 22px 48px 38px 30px;
     background-color: #fff6db;
+    border-radius: 16px;
 }
-
+#lists li a{
+    color:#191926;
+}
+#lists li a:hover{
+    color:#48485b;
+}
+#lists li a:active{
+    color:#ff4b4b;
+}
+#lists li a:focus{
+    text-decoration: none;
+}
+#lists li a:link{
+    text-decoration: none;
+}
+#lists li a:active{
+    text-decoration: none;
+}
