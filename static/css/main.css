@@ -55,3 +55,7 @@ li button{
 #lists li a:active{
     text-decoration: none;
 }
+#error-lists{
+    margin-bottom: 12px;
+    color: red;
+}

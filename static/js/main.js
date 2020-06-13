@@ -32,24 +32,30 @@ for(let i = 0; i < deleteItems.length; i++){
     deleteItem.onclick = e => {
         listId = e.target.dataset['id'];
         console.log('list id to delete: ' + listId)
-        fetch('/lists/' + listId + '/delete', {
-            method: 'DELETE',
-        })
-        .then(function(){
-            todos_to_delete = document.querySelectorAll('.check-completed');
-            for(let i = 0; i < todos_to_delete.length; i++){
-                todo_to_delete = todos_to_delete[i]
-                console.log(todo_to_delete)
-                if(listId == todo_to_delete.dataset['listId']){
-                    todo_to_delete.parentNode.remove();
+
+        // Avoid deleting Uncategorized
+        if (listId==1){
+            document.getElementById('error-lists').className = ''; 
+        } else {
+            fetch('/lists/' + listId + '/delete', {
+                method: 'DELETE',
+            })
+            .then(function(){
+                todos_to_delete = document.querySelectorAll('.check-completed');
+                for(let i = 0; i < todos_to_delete.length; i++){
+                    todo_to_delete = todos_to_delete[i]
+                    console.log(todo_to_delete)
+                    if(listId == todo_to_delete.dataset['listId']){
+                        todo_to_delete.parentNode.remove();
+                    }
                 }
-            }
-            document.getElementById('active-list').innerText = 'List was successfully removed';
-            deleteItem.parentNode.remove();
-        })
-        .catch(function(){
-            document.getElementById('error-lists').className = '';  
-        })
+                document.getElementById('active-list').innerText = 'List was successfully removed';
+                deleteItem.parentNode.remove();
+            })
+            .catch(function(){
+                document.getElementById('error-lists').className = '';  
+            })
+        }
     }
 }
 
@@ -157,6 +163,7 @@ document.getElementById('form').onsubmit = function(e){
         document.getElementById('error').className = '';
     });
 }
+
 /**
  *   New List Item
  */
