@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from models import setup_db, TodoList, Todo
+from models import setup_db, TodoList, Todo, db
 
 import sys
 import os
