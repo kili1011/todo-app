@@ -1,0 +1,403 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: schrenkk
+--
+
+CREATE TABLE public.alembic_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public.alembic_version OWNER TO schrenkk;
+
+--
+-- Name: order_items; Type: TABLE; Schema: public; Owner: schrenkk
+--
+
+CREATE TABLE public.order_items (
+    order_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.order_items OWNER TO schrenkk;
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: schrenkk
+--
+
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    status character varying NOT NULL
+);
+
+
+ALTER TABLE public.orders OWNER TO schrenkk;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: schrenkk
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO schrenkk;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: schrenkk
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
+-- Name: product; Type: TABLE; Schema: public; Owner: schrenkk
+--
+
+CREATE TABLE public.product (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.product OWNER TO schrenkk;
+
+--
+-- Name: product_id_seq; Type: SEQUENCE; Schema: public; Owner: schrenkk
+--
+
+CREATE SEQUENCE public.product_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_id_seq OWNER TO schrenkk;
+
+--
+-- Name: product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: schrenkk
+--
+
+ALTER SEQUENCE public.product_id_seq OWNED BY public.product.id;
+
+
+--
+-- Name: todolists; Type: TABLE; Schema: public; Owner: schrenkk
+--
+
+CREATE TABLE public.todolists (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    completed boolean NOT NULL
+);
+
+
+ALTER TABLE public.todolists OWNER TO schrenkk;
+
+--
+-- Name: todolists_id_seq; Type: SEQUENCE; Schema: public; Owner: schrenkk
+--
+
+CREATE SEQUENCE public.todolists_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.todolists_id_seq OWNER TO schrenkk;
+
+--
+-- Name: todolists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: schrenkk
+--
+
+ALTER SEQUENCE public.todolists_id_seq OWNED BY public.todolists.id;
+
+
+--
+-- Name: todos; Type: TABLE; Schema: public; Owner: schrenkk
+--
+
+CREATE TABLE public.todos (
+    id integer NOT NULL,
+    description character varying NOT NULL,
+    completed boolean NOT NULL,
+    list_id integer NOT NULL
+);
+
+
+ALTER TABLE public.todos OWNER TO schrenkk;
+
+--
+-- Name: todos_id_seq; Type: SEQUENCE; Schema: public; Owner: schrenkk
+--
+
+CREATE SEQUENCE public.todos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.todos_id_seq OWNER TO schrenkk;
+
+--
+-- Name: todos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: schrenkk
+--
+
+ALTER SEQUENCE public.todos_id_seq OWNED BY public.todos.id;
+
+
+--
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- Name: product id; Type: DEFAULT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.product_id_seq'::regclass);
+
+
+--
+-- Name: todolists id; Type: DEFAULT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.todolists ALTER COLUMN id SET DEFAULT nextval('public.todolists_id_seq'::regclass);
+
+
+--
+-- Name: todos id; Type: DEFAULT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.todos ALTER COLUMN id SET DEFAULT nextval('public.todos_id_seq'::regclass);
+
+
+--
+-- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: schrenkk
+--
+
+COPY public.alembic_version (version_num) FROM stdin;
+2e45b36b9ef5
+\.
+
+
+--
+-- Data for Name: order_items; Type: TABLE DATA; Schema: public; Owner: schrenkk
+--
+
+COPY public.order_items (order_id, product_id) FROM stdin;
+1	1
+\.
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: schrenkk
+--
+
+COPY public.orders (id, status) FROM stdin;
+1	ready
+\.
+
+
+--
+-- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: schrenkk
+--
+
+COPY public.product (id, name) FROM stdin;
+1	Great widget
+\.
+
+
+--
+-- Data for Name: todolists; Type: TABLE DATA; Schema: public; Owner: schrenkk
+--
+
+COPY public.todolists (id, name, completed) FROM stdin;
+5	Fünfte Liste	f
+16	Neue Liste	f
+17	Neueste Liste	f
+18	Jetzt aber	f
+19	Jetzt aber oder?	t
+3	Name der Liste	t
+2	Urgent	f
+1	Uncategorized	f
+\.
+
+
+--
+-- Data for Name: todos; Type: TABLE DATA; Schema: public; Owner: schrenkk
+--
+
+COPY public.todos (id, description, completed, list_id) FROM stdin;
+73	item 1	t	19
+74	item 2	t	19
+75	item 3	t	19
+76	item 4	t	19
+1	this is a todo	f	1
+20	this is a todo 2	f	1
+25	this is a todo 7	f	1
+27	this is a todo 5	f	1
+38	this is a todo 6	f	1
+43	this is a uncategorized todo	f	1
+77	item 1	t	3
+78	item 2	t	3
+79	item 3	t	3
+80	item 4	t	3
+81	item 5	t	3
+39	Urgent todo 4	f	2
+44	This is a urgent todo	f	2
+31	This really important thing	f	2
+32	Urgent todo 2	f	2
+33	Urgent todo 3	f	2
+40	Urgent todo 5	f	2
+41	Urgent todo 6	f	2
+45	Altvadalä anrufen	f	2
+47	Papa anrufen	f	2
+48	Hier könnte auch mal etwas stehen	f	5
+57	Und da ist das Ding	f	5
+58	Nochmal weil es cool ist	f	5
+\.
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: schrenkk
+--
+
+SELECT pg_catalog.setval('public.orders_id_seq', 1, true);
+
+
+--
+-- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: schrenkk
+--
+
+SELECT pg_catalog.setval('public.product_id_seq', 1, true);
+
+
+--
+-- Name: todolists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: schrenkk
+--
+
+SELECT pg_catalog.setval('public.todolists_id_seq', 19, true);
+
+
+--
+-- Name: todos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: schrenkk
+--
+
+SELECT pg_catalog.setval('public.todos_id_seq', 82, true);
+
+
+--
+-- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.alembic_version
+    ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: order_items order_items_pkey; Type: CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.order_items
+    ADD CONSTRAINT order_items_pkey PRIMARY KEY (order_id, product_id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.product
+    ADD CONSTRAINT product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: todolists todolists_pkey; Type: CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.todolists
+    ADD CONSTRAINT todolists_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: todos todos_pkey; Type: CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.todos
+    ADD CONSTRAINT todos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_items order_items_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.order_items
+    ADD CONSTRAINT order_items_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.orders(id);
+
+
+--
+-- Name: order_items order_items_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.order_items
+    ADD CONSTRAINT order_items_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.product(id);
+
+
+--
+-- Name: todos todos_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: schrenkk
+--
+
+ALTER TABLE ONLY public.todos
+    ADD CONSTRAINT todos_list_id_fkey FOREIGN KEY (list_id) REFERENCES public.todolists(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
