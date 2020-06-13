@@ -2,7 +2,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 
 
-database_path = os.environ['SQLALCHEMY_DATABASE_URI']
+database_path = os.environ['DATABASE_URL']
 db = SQLAlchemy()
 
 # ------------------------------------------------ #
