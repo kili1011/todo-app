@@ -1,4 +1,13 @@
+# Flask
 Flask
+
+# Database and Migrations
 Flask-Migrate
 Flask-SQLAlchemy
 psycopg2
+Flask-Script
+
+# Server
+gunicorn
+
+
