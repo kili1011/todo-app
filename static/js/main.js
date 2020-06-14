@@ -159,7 +159,10 @@ document.getElementById('form').onsubmit = function(e){
         deleteButton.innerHTML = '&cross;';
         li.appendChild(deleteButton);
         document.getElementById('todos').appendChild(li);
+        // error
         document.getElementById('error').className = 'hidden';
+        // clear form
+        document.getElementById('description').value = "";  
     })
     .catch(function(){
         document.getElementById('error').className = '';
@@ -205,9 +208,13 @@ document.getElementById('list-form').onsubmit = function(e){
         list_item.appendChild(list_link);
         list_item.appendChild(list_deleteButton);
         document.getElementById('lists').appendChild(list_item);
+        // errors, clear & window
         document.getElementById('error-lists').className = 'hidden';
+        document.getElementById('listname').value = "";
+        window.location = jsonResponse.id
     })
     .catch(function(){
         document.getElementById('error-lists').className = '';
     });
 }
+
