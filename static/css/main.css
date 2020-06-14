@@ -1,23 +1,63 @@
 body{
-    margin: 0 auto;
-    width: 1130px;
+    /*! margin: 0 auto; */
+    /*! width: 1130px; */
 }
+
+/** 
+Helpers
+*/
 .hidden{
     display: none;
 }
+
+/** 
+Fonts
+*/
+h1{
+    margin-bottom: 18px;
+}
+h4{
+    margin-bottom: 16px;    
+}
+
+/**
+Interface
+*/
+.interface{
+    margin: 30px auto;
+}
+
+.lists-wrapper, .todos-wrapper{
+    margin: 0 0 60px;
+}
+
+#listname{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.list-completed{
+    margin-right:8px;
+}
+
 form{
     margin-bottom:20px;
 }
-ul{
+
+.interface ul{
     list-style: none;
     padding: 0;
-    margin: 0;
-    width:300px;
+    /*! margin: 0; */
+    width:100%;
 }
-li{
+
+.interface li{
     clear:both;
+    margin-bottom: 12px;
 }
-li button{
+
+.interface li button{
     -webkit-appearance: none;
     border:none;
     outline:none;
@@ -25,37 +65,67 @@ li button{
     float:right;
     cursor: pointer;
 } 
-.lists-wrapper, .todos-wrapper{
-    display: inline-block;
-    vertical-align: top;
-    margin: 40px;
-}
+
 .todos-wrapper{
     padding-top:40px;
     box-shadow: 1px 1px 9px #ddd;
-    padding: 22px 48px 38px 30px;
+    padding: 30px 22px;
     background-color: #fff6db;
     border-radius: 16px;
 }
+
 #lists li a{
     color:#191926;
 }
+
 #lists li a:hover{
     color:#48485b;
 }
+
 #lists li a:active{
     color:#ff4b4b;
 }
+
 #lists li a:focus{
     text-decoration: none;
 }
+
 #lists li a:link{
     text-decoration: none;
 }
+
 #lists li a:active{
     text-decoration: none;
 }
+
+#description{
+    width:100%;
+    margin-bottom: 16px;
+}
+
 #error-lists{
     margin-bottom: 12px;
     color: red;
 }
+
+
+@media(min-width:992px){
+    .interface{
+        margin: 60px auto;
+    }
+    .lists-wrapper{
+        width:90%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

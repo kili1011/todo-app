@@ -35,7 +35,10 @@ for(let i = 0; i < deleteItems.length; i++){
 
         // Avoid deleting Uncategorized
         if (listId==1){
-            document.getElementById('error-lists').className = ''; 
+            var error = document.getElementById('error-lists')
+            console.log(error)
+            error.className="";
+            error.innerHTML = "Uncategorized can't be deleted";
         } else {
             fetch('/lists/' + listId + '/delete', {
                 method: 'DELETE',
@@ -58,7 +61,6 @@ for(let i = 0; i < deleteItems.length; i++){
         }
     }
 }
-
 
 /**
  *   Checkboxes 
