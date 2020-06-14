@@ -116,6 +116,9 @@ form{
     .lists-wrapper{
         width:90%;
     }
+    .todos-wrapper{
+        margin-top: 66px;
+    }
 }
 
 
