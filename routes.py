@@ -19,10 +19,23 @@ def get_list_todos(list_id):
     '''
     Uncategorized list
     '''
+    # get status
+    todos=Todo.query.filter_by(list_id=list_id).order_by('id').all()
+    y = len(todos)  
+    x = 0 
+    for todo in todos:
+      if (todo.completed == True):
+        x += 1
+    if x == 0:
+      status = 0
+    else:
+      status = round(x / y * 100)
+
     return render_template('index.html',
         lists=TodoList.query.order_by('id').all(), 
         active_list=TodoList.query.get(list_id),
-        todos=Todo.query.filter_by(list_id=list_id).order_by('id').all())
+        todos=todos, 
+        status=status)
 
 
 @main.route('/lists/create', methods=['POST'])

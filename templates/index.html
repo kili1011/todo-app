@@ -5,16 +5,16 @@
 {% block main %}
 <section class="interface">
     <div class="container">
-        <div class="col-md-12">
-            <div id="error-lists" class="hidden" role="alert">
-                Something went wrong!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        <div class="row">
+            <!-- Errors -->
+            <div class="col-md-12">
+                <div id="error-lists" class="hidden" role="alert">
+                    Something went wrong!
+                </div>
             </div>
         </div>
         <div class="row">
-            <!--
-            # Lists
-            -->
+            <!-- Lists -->
             <div class="col-md-6">
                 <div class="lists-wrapper">
                     <h1>My Lists</h1>
@@ -22,14 +22,14 @@
                         <img class="card-img-top" src="{{ url_for( 'static', filename='note.jpg') }}" alt="Card image cap">
                         <div class="card-body">
                             <form id="list-form">
-                                <input id="listname" type="text" name="listname" required>
+                                <input id="listname" type="text" name="listname" placeholder="Enter list title" required>
                                 <input type="submit" value="Create a List">
                             </form>
                             <ul id='lists'>
                                 {% for list in lists %}
                                 <li>
                                     <input class="list-completed" data-id="{{ list.id }}" type="checkbox" {% if list.completed %} checked {% endif %}/>
-                                    <a href="/lists/{{ list.id }}">
+                                    <a class="list-links" href="/lists/{{ list.id }}">
                                         {{ list.name }}
                                     </a>
                                     <button class="delete-list" data-id="{{ list.id }}">&cross;</button>
@@ -40,14 +40,16 @@
                     </div>                    
                 </div>
             </div>
-            <!--
-            # Todos
-            -->
+            <!-- Todos -->
             <div class="col-md-6">
                 <div class="todos-wrapper">
+                    <div id="status_bar">
+                        <span class="status_note">Status</span>
+                        <div class="progress" style="width:{{ status }}%"></div>
+                    </div>
                     <h4 id="active-list">{{ active_list.name }}</h4>
                     <form id="form">
-                        <input id=description type="text" name="description">
+                        <input id=description type="text" name="description" placeholder="Enter todo description">
                         <input type="submit" value="Create Todo">
                     </form>
                     <div id="error" class="hidden">Something went wrong!</div>

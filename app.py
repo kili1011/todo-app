@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 # Data
-from models import setup_db
+from models import setup_db, Todo, TodoList
 
 # Blueprints
 from routes import main
