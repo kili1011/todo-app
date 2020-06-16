@@ -4,7 +4,7 @@
 
 
 ### Python 3.7
-Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python).
 
 ### Virtual Environment
 Once you installed the latest python version setup a virtual environment and activate it. See [further instructions](https://docs.python.org/3/tutorial/venv.html "Python Tutorials") on how to create virtual environments.
@@ -19,14 +19,14 @@ pip3 install -r requirements.txt
 ```
 
 ### Environment Variables
-The app is configured by env variables that are stores in the config.sh.
+The app is configured by env variables that are stored in the config.sh.
 ```bash
 . config.sh
 ```
 
 ### Setup the database 
 
-Setup a new Postgres database with 
+Setup a new Postgres database. You need to have Postgres and psql installed.
 
 ```bash
 createdb todoapp && psql -d todoapp -f todoapp.sql
